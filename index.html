@@ -125,22 +125,20 @@ input{
 .pilihan label{
   display:flex;
   align-items:center;
-  justify-content:flex-start;
 
-  gap:8px;                 /* diperkecil biar tidak jauh */
-  padding:10px 12px;
+  gap:6px;                 /* jarak radio & teks lebih dekat */
+  padding:10px 10px 10px 8px;  /* kiri diperkecil */
 
   background:#ffffff;
   margin:8px 0;
   border-radius:5px;
   cursor:pointer;
 
-  white-space:nowrap;      /* PENTING: cegah turun */
+  white-space:nowrap;
 }
-
 .pilihan input[type="radio"]{
   margin:0;
-  transform: scale(0.9);   /* kecilkan sedikit */
+  transform: scale(0.85);   /* sedikit lebih kecil */
   flex-shrink:0;
 }
 
@@ -331,6 +329,56 @@ button{
   white-space:nowrap;   /* cegah teks turun */
 }
 
+
+
+
+ .pilihan label{
+  justify-content:flex-start;
+}
+
+.pilihan label span{
+  margin-left:2px;
+}
+html, body{
+  width:100%;
+  height:100%;
+}
+
+/* APP FULL */
+#app{
+  width:100%;
+  height:100vh;
+}
+
+/* MAIN FULL */
+.main{
+  width:100%;
+  height:100vh;
+}
+
+/* SOAL FULL AREA */
+.soal-box{
+  flex:1;
+  overflow-y:auto;
+}
+
+/* CARD FULL LEBAR */
+.card{
+  width:100%;
+  max-width:900px;     /* biar rapi di laptop */
+  margin:auto;
+}
+@media(max-width:768px){
+  .card{
+    max-width:100%;
+    padding:15px;
+  }
+
+  .pilihan label{
+    font-size:14px;
+  }
+}
+ 
 </style>
 
 </head>
