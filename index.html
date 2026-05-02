@@ -123,12 +123,26 @@ input{
 }
 
 .pilihan label{
- display:block;
- background:#ffffff;
- margin:8px 0;
- padding:10px;
- border-radius:5px;
- cursor:pointer;
+  display:flex;              /* bikin sejajar */
+  align-items:center;        /* rata tengah vertikal */
+  gap:10px;                  /* jarak radio & teks */
+  
+  background:#ffffff;
+  margin:8px 0;
+  padding:12px 15px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+/* RADIO DI KIRI */
+.pilihan input[type="radio"]{
+  margin:0;
+  flex-shrink:0;             /* biar tidak geser */
+}
+
+/* TEKS PILIHAN */
+.pilihan label{
+  text-align:left;
 }
 
 .footer{
