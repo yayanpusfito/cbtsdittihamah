@@ -123,21 +123,25 @@ input{
 }
 
 .pilihan label{
-  display:flex;              /* bikin sejajar */
-  align-items:center;        /* rata tengah vertikal */
-  gap:10px;                  /* jarak radio & teks */
-  
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+
+  gap:8px;                 /* diperkecil biar tidak jauh */
+  padding:10px 12px;
+
   background:#ffffff;
   margin:8px 0;
-  padding:12px 15px;
   border-radius:5px;
   cursor:pointer;
+
+  white-space:nowrap;      /* PENTING: cegah turun */
 }
 
-/* RADIO DI KIRI */
 .pilihan input[type="radio"]{
   margin:0;
-  flex-shrink:0;             /* biar tidak geser */
+  transform: scale(0.9);   /* kecilkan sedikit */
+  flex-shrink:0;
 }
 
 /* TEKS PILIHAN */
@@ -322,7 +326,10 @@ button{
   color: white; /* samakan dengan tulisan lain */
 }
 
-
+.pilihan label span,
+.pilihan label{
+  white-space:nowrap;   /* cegah teks turun */
+}
 
 </style>
 
