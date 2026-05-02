@@ -46,6 +46,43 @@ input{
  overflow-y:auto;
 }
 
+
+/* SIDEBAR MOBILE (GESER) */
+.sidebar{
+  width:250px;
+  background:#ffffff;
+  padding:15px;
+  overflow-y:auto;
+
+  position:fixed;
+  left:0;
+  top:0;
+  height:100%;
+  z-index:1000;
+
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+/* SAAT MUNCUL */
+.sidebar.active{
+  transform: translateX(0);
+}
+
+/* TOMBOL TOGGLE */
+.toggle-btn{
+  position:fixed;
+  top:80px;
+  left:10px;
+  background:#203bb6;
+  color:white;
+  padding:10px;
+  border-radius:5px;
+  z-index:1100;
+  cursor:pointer;
+}
+
+
 .nomor{
  display:grid;
  grid-template-columns:repeat(5,1fr);
@@ -273,39 +310,6 @@ button{
 
 
 
-/* SIDEBAR ANIMASI */
-.sidebar{
- width:250px;
- background:#ffffff;
- padding:15px;
- overflow-y:auto;
- transition: transform 0.3s ease;
-}
-
-/* SEMBUNYIKAN SIDEBAR */
-.sidebar.hide{
- transform: translateX(-100%);
- position: absolute;
- z-index: 10;
- height: 100%;
-}
-
-/* MAIN FULL */
-.main.full{
- width:100%;
-}
-
-/* TOMBOL TOGGLE */
-#toggleSidebar{
- background:#1e293b;
- color:white;
- border:none;
- padding:8px 12px;
- border-radius:5px;
- cursor:pointer;
- margin-right:10px;
-}
-
 </style>
 
 </head>
@@ -327,7 +331,7 @@ button{
 
 <!-- APP -->
 <div id="app" style="display:none; width:100%;">
-
+<div class="toggle-btn" onclick="toggleSidebar()">☰</div>
 <!-- SIDEBAR -->
 <div class="sidebar">
 
@@ -344,16 +348,7 @@ button{
 <div class="main">
 
 <div class="header">
-
-<button id="toggleSidebar" onclick="toggleSidebar()">☰</button>
-
 <div>Nama: <span id="namaUser">-</span></div>
-
-<div id="timer">90:00</div>
-
-<div>CBT SDIT TIHAMAH</div>
-</div>
-
 
 <div id="timer">90:00</div>
 
@@ -1132,20 +1127,38 @@ function mulaiTimer(){
 
 
 
-let sidebarVisible = true;
+const sidebar = document.querySelector(".sidebar");
 
+// TOMBOL KLIK
 function toggleSidebar(){
-  const sidebar = document.querySelector(".sidebar");
-  const main = document.querySelector(".main");
+  sidebar.classList.toggle("active");
+}
 
-  sidebarVisible = !sidebarVisible;
+// SWIPE (HP SUPPORT)
+let startX = 0;
+let endX = 0;
 
-  if(!sidebarVisible){
-    sidebar.classList.add("hide");
-    main.classList.add("full");
-  }else{
-    sidebar.classList.remove("hide");
-    main.classList.remove("full");
+// DETEKSI SENTUH
+document.addEventListener("touchstart", e=>{
+  startX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchend", e=>{
+  endX = e.changedTouches[0].clientX;
+  handleSwipe();
+});
+
+function handleSwipe(){
+  let diff = endX - startX;
+
+  // Geser kanan → buka
+  if(diff > 50){
+    sidebar.classList.add("active");
+  }
+
+  // Geser kiri → tutup
+  if(diff < -50){
+    sidebar.classList.remove("active");
   }
 }
 
