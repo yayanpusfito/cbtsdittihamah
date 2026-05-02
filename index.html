@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT ANBK - SDIT TIHAMAH</title>
+
+<style>
+body{
+ margin:0;
+ font-family:'Segoe UI',sans-serif;
+ background:#ffffff;
+ color:white;
+ display:flex;
+ height:100vh;
+}
+
+/* LOGIN */
+#loginPage{
+ width:100%;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ height:100vh;
+}
+
+.login-box{
+ background:#0d7015;
+ padding:30px;
+ border-radius:10px;
+ text-align:center;
+}
+
+input{
+ padding:10px;
+ width:200px;
+ border:none;
+ border-radius:5px;
+}
+
+/* SIDEBAR */
+.sidebar{
+ width:250px;
+ background:#ffffff;
+ padding:15px;
+ overflow-y:auto;
+}
+
+.nomor{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:8px;
+}
+
+.nomor div{
+ background:#334155;
+ padding:10px;
+ text-align:center;
+ border-radius:5px;
+ cursor:pointer;
+}
+
+/* MAIN */
+.main{
+ flex:1;
+ display:flex;
+ flex-direction:column;
+}
+
+.header{
+ background:#203bb6;
+ padding:10px 20px;
+ display:flex;
+ justify-content:space-between;
+}
+
+.soal-box{
+ flex:1;
+ padding:20px;
+}
+
+.card{
+ background:#fdfffe;
+ padding:20px;
+ border-radius:10px;
+}
+
+.pilihan label{
+ display:block;
+ background:#ffffff;
+ margin:8px 0;
+ padding:10px;
+ border-radius:5px;
+ cursor:pointer;
+}
+
+.footer{
+ padding:10px;
+ text-align:right;
+}
+
+button{
+ background:#ffffff;
+ border:none;
+ padding:10px 20px;
+ color:rgb(0, 0, 0);
+ border-radius:5px;
+ cursor:pointer;
+}
+
+.card img{
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}
+
+
+
+
+
+/* TEKS SOAL JADI HITAM */
+.card {
+  color: #111; /* hitam gelap */
+}
+
+/* TEKS PERTANYAAN */
+.card p {
+  color: #111;
+}
+
+/* TEKS PILIHAN JAWABAN */
+.pilihan label {
+  color: #111;
+  font-weight: 500; /* biar lebih jelas */
+}
+
+/* RADIO BUTTON (opsional biar kontras) */
+.pilihan input[type="radio"] {
+  accent-color: #111;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* GARIS TEPI KOTAK SOAL */
+.card{
+  border: 3px solid #022c22; /* hijau gelap elegan */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* GARIS TEPI PILIHAN JAWABAN */
+.pilihan label{
+  border: 2px solid #bfae00; /* kuning lebih gelap */
+  transition: all 0.2s ease;
+}
+
+/* EFEK SAAT DISOROT (HOVER) */
+.pilihan label:hover{
+  border: 2px solid #111;
+  background: #ffe94d;
+}
+
+/* SAAT DIPILIH */
+.pilihan input[type="radio"]:checked + span,
+.pilihan label:has(input:checked){
+  border: 2px solid #16a34a;
+  background: #bbf7d0;
+  color: #000;
+}
+
+
+
+
+
+
+
+/* BOX LOGO */
+.logo-box{
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* GAMBAR LOGO */
+.logo-box img{
+  width: 100px;      /* ukuran pas */
+  height: auto;
+  object-fit: contain;
+}
+
+
+
+
+
+
+
+
+/* TOMBOL SELESAI JADI BIRU */
+.footer button{
+  background: #2563eb; /* biru elegan */
+  color: white;
+  font-weight: 600;
+}
+
+/* EFEK HOVER */
+.footer button:hover{
+  background: #1d4ed8; /* biru lebih gelap */
+}
+
+
+
+
+
+
+
+
+.login-logo img{
+  width: 85px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+
+
+
+/* FORMAT PECAHAN */
+.frac{
+  display:inline-block;
+  text-align:center;
+  vertical-align:middle;
+  margin:0 3px;
+}
+
+.frac sup{
+  display:block;
+  font-size:14px;
+  line-height:1;
+}
+
+.frac sub{
+  display:block;
+  font-size:14px;
+  line-height:1;
+}
+
+.garis{
+  display:block;
+  border-top:2px solid #000;
+  margin:2px 0;
+}
+
+
+
+
+#timer{
+  font-weight: 600;
+  font-size: 18px;
+  color: white; /* samakan dengan tulisan lain */
+}
+
+
+
+/* SIDEBAR ANIMASI */
+.sidebar{
+ width:250px;
+ background:#ffffff;
+ padding:15px;
+ overflow-y:auto;
+ transition: transform 0.3s ease;
+}
+
+/* SEMBUNYIKAN SIDEBAR */
+.sidebar.hide{
+ transform: translateX(-100%);
+ position: absolute;
+ z-index: 10;
+ height: 100%;
+}
+
+/* MAIN FULL */
+.main.full{
+ width:100%;
+}
+
+/* TOMBOL TOGGLE */
+#toggleSidebar{
+ background:#1e293b;
+ color:white;
+ border:none;
+ padding:8px 12px;
+ border-radius:5px;
+ cursor:pointer;
+ margin-right:10px;
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+  <div class="login-box">
+    <div class="login-logo">
+  <img src="LOGO SDIT 2023.png" alt="Logo Sekolah">
+</div>
+
+<h2>LOGIN CBT</h2>
+    <input id="username" placeholder="Username"><br><br>
+    <input id="password" type="password" placeholder="Password"><br><br>
+    <button onclick="login()">Masuk</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none; width:100%;">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<div class="logo-box">
+  <img src="LOGO SDIT 2023.png" alt="Logo Sekolah">
+</div>
+
+<h3>NOMOR</h3>
+<div class="nomor" id="nomorSoal"></div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="header">
+
+<button id="toggleSidebar" onclick="toggleSidebar()">☰</button>
+
+<div>Nama: <span id="namaUser">-</span></div>
+
+<div id="timer">90:00</div>
+
+<div>CBT SDIT TIHAMAH</div>
+</div>
+
+
+<div id="timer">90:00</div>
+
+<div>CBT SDIT TIHAMAH</div>
+</div>
+
+<div class="soal-box">
+<div class="card" id="soal"></div>
+</div>
+
+<div class="footer">
+<button onclick="kirim()">Selesai</button>
+</div>
+
+</div>
+</div>
+
+<script>
+
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwSyJyhmX6bZJ1b9gAbj-opJuFc-m4J3M0KgP61cd0kQ609LPw3BZZAHL-Nk6KHSRlH/exec"; // GANTI INI
+
+let userLogin = null;
+
+// DATA SOAL
+const soal = [
+
+/*soal 1*/
+{
+tanya:`Hasil dari 
+<span class="frac"><sup>7</sup><span class="garis"></span><sub>9</sub></span>
+ − 
+<span class="frac"><sup>1</sup><span class="garis"></span><sub>6</sub></span>
+ adalah ....`,
+
+opsi:[
+`<span class="frac"><sup>6</sup><span class="garis"></span><sub>3</sub></span>`,
+`<span class="frac"><sup>11</sup><span class="garis"></span><sub>18</sub></span>`,
+`<span class="frac"><sup>8</sup><span class="garis"></span><sub>15</sub></span>`,
+`<span class="frac"><sup>17</sup><span class="garis"></span><sub>18</sub></span>`
+]
+},
+
+/*soal 2*/
+
+ {
+tanya:`Hasil dari 
+1 <span class="frac"><sup>3</sup><span class="garis"></span><sub>8</sub></span>
+ − 
+1 <span class="frac"><sup>1</sup><span class="garis"></span><sub>2</sub></span>
+ adalah ....`,
+
+opsi:[
+`2 <span class="frac"><sup>1</sup><span class="garis"></span><sub>8</sub></span>`,
+`2 <span class="frac"><sup>7</sup><span class="garis"></span><sub>8</sub></span>`,
+`2 <span class="frac"><sup>2</sup><span class="garis"></span><sub>6</sub></span>`,
+`2 <span class="frac"><sup>4</sup><span class="garis"></span><sub>10</sub></span>`
+]
+},
+
+
+/*soal 3*/
+
+{
+tanya:`Hasil dari Rian memiliki pita sepanjang 
+<span class="frac"><sup>3</sup><span class="garis"></span><sub>4</sub></span> m, 
+sedangkan Dadang memiliki pita sepanjang 
+<span class="frac"><sup>4</sup><span class="garis"></span><sub>5</sub></span> m. 
+Panjang pita Rian dan Dadang seluruhnya adalah ....`,
+
+opsi:[
+`<span class="frac"><sup>1</sup><span class="garis"></span><sub>9</sub></span>`,
+`<span class="frac"><sup>7</sup><span class="garis"></span><sub>9</sub></span>`,
+`<span class="frac"><sup>7</sup><span class="garis"></span><sub>20</sub></span>`,
+`1 <span class="frac"><sup>11</sup><span class="garis"></span><sub>20</sub></span>`
+]
+},
+
+
+
+/*soal 4*/
+
+{
+tanya:`Hasil dari 
+<span class="frac"><sup>2</sup><span class="garis"></span><sub>6</sub></span> × 8 adalah ....`,
+
+opsi:[
+`<span class="frac"><sup>16</sup><span class="garis"></span><sub>48</sub></span>`,
+`<span class="frac"><sup>2</sup><span class="garis"></span><sub>48</sub></span>`,
+`<span class="frac"><sup>16</sup><span class="garis"></span><sub>6</sub></span>`,
+`2`
+]
+},
+
+
+
+/*soal 5*/
+{
+tanya:`Susu sebanyak 
+<span class="frac"><sup>7</sup><span class="garis"></span><sub>6</sub></span> liter 
+dituangkan sama banyak ke dalam 3 botol. Banyak susu yang ada dalam setiap botol adalah ....`,
+
+opsi:[
+`<span class="frac"><sup>7</sup><span class="garis"></span><sub>19</sub></span> liter`,
+`<span class="frac"><sup>7</sup><span class="garis"></span><sub>6</sub></span> liter`,
+`<span class="frac"><sup>7</sup><span class="garis"></span><sub>18</sub></span> liter`,
+`<span class="frac"><sup>18</sup><span class="garis"></span><sub>7</sub></span> liter`
+]
+},
+
+
+/*soal 6*/
+
+
+{
+tanya:`Berikut ini pernyataan yang benar adalah ....`,
+
+opsi:[
+`Luas persegi = panjang + lebar`,
+`Luas belah ketupat = <span class="frac"><sup>d1 × d2</sup><span class="garis"></span><sub>2</sub></span>`,
+`Luas jajargenjang = alas × tinggi`,
+`Luas trapesium = (a - b) × tinggi : 2`
+]
+},
+
+
+
+/*soal 7*/
+{
+tanya:`Perhatikan gambar berikut.<br><img src="S7.png"><br>
+Luas bangun di atas adalah ....`,
+
+opsi:[
+`18 cm²`,
+`24 cm²`,
+`12 cm²`,
+`36 cm²`
+]
+},
+
+
+/*soal 8*/
+{
+tanya:`Perhatikan gambar berikut.<br><img src="S8.png"><br>
+Luas bangun di atas adalah ....`,
+
+opsi:[
+`24 cm²`,
+`12 cm²`,
+`9 cm²`,
+`18 cm²`
+]
+},
+
+
+/*soal 9*/
+{
+tanya:`Perhatikan gambar berikut.<br><img src="S9.png"><br>
+Luas bangun di atas adalah ....`,
+
+opsi:[
+`12 cm²`,
+`26 cm²`,
+`20 cm²`,
+`40 cm²`
+]
+},
+
+/*soal 10*/
+{
+tanya:`Andi dapat berjalan menempuh jarak 10 m dalam waktu 2 detik.<br>
+Waktu yang diperlukan Andi untuk menempuh jarak 80 m adalah ....`,
+
+opsi:[
+`16 detik`,
+`6 detik`,
+`8 detik`,
+`4 detik`
+]
+},
+
+/*soal 11*/
+{
+tanya:`Dua buah kotak ditumpuk dengan tinggi 12 cm.<br>
+Tinggi tumpukan 7 kotak adalah ....`,
+
+opsi:[
+`42 cm`,
+`36 cm`,
+`24 cm`,
+`72 cm`
+]
+},
+
+/*soal 12*/
+{
+tanya:`Suatu toko menjual satu kotak bolpoin dengan isi 15 bolpoin.<br>
+Dalam satu hari toko tersebut mampu menjual 4 kotak bolpoin,<br>
+banyak bolpoin yang terjual dalam satu hari adalah ....`,
+
+opsi:[
+`45`,
+`60`,
+`30`,
+`15`
+]
+},
+
+/*soal 13*/
+{
+tanya:`Perhatikan gambar berikut!<br>
+<img src="S14.png"><br>
+Yang ditunjukkan nomor 2 adalah ....`,
+
+opsi:[
+`Diameter`,
+`Tali busur`,
+`Juring`,
+`Tembereng`
+]
+},
+
+/*soal 14*/
+{
+tanya:`Luas lingkaran yang memiliki panjang jari-jari 14 cm adalah ....`,
+
+opsi:[
+`44 cm²`,
+`88 cm²`,
+`132 cm²`,
+`176 cm²`
+]
+},
+
+/*soal 15*/
+{
+tanya:`Perhatikan gambar berikut!<br>
+<img src="S15.png"><br>
+Gambar di atas merupakan jaring-jaring bangun ruang ....`,
+
+opsi:[
+`Balok`,
+`Prisma`,
+`Tabung`,
+`Kubus`
+]
+},
+
+/*soal 16 (isian dibuat pilihan)*/
+{
+tanya:`0,65 merupakan jenis pecahan ....`,
+
+opsi:[
+`Pecahan biasa`,
+`Pecahan desimal`,
+`Pecahan campuran`,
+`Pecahan persen`
+]
+},
+
+/*soal 17*/
+{
+tanya:`Hasil dari 
+<span class="frac"><sup>5</sup><span class="garis"></span><sub>6</sub></span> : 4 adalah ....`,
+
+opsi:[
+`<span class="frac"><sup>5</sup><span class="garis"></span><sub>24</sub></span>`,
+`<span class="frac"><sup>20</sup><span class="garis"></span><sub>6</sub></span>`,
+`<span class="frac"><sup>5</sup><span class="garis"></span><sub>10</sub></span>`,
+`<span class="frac"><sup>24</sup><span class="garis"></span><sub>5</sub></span>`
+]
+},
+
+/*soal 18*/
+{
+tanya:`Rumus luas layang-layang adalah ....`,
+
+opsi:[
+`alas × tinggi`,
+`<span class="frac"><sup>d1 × d2</sup><span class="garis"></span><sub>2</sub></span>`,
+`s × s`,
+`<span class="frac"><sup>a + b</sup><span class="garis"></span><sub>2</sub></span> × t`
+]
+},
+
+/*soal 19*/
+{
+tanya:`Luas persegi yang memiliki panjang sisi 12 cm adalah ....`,
+
+opsi:[
+`124 cm²`,
+`144 cm²`,
+`122 cm²`,
+`132 cm²`
+]
+},
+
+/*soal 20*/
+{
+tanya:`Intan berlari 2 km selama 20 menit.<br>
+Jika Intan berlari selama 1 jam, jarak yang ditempuh Intan adalah ....`,
+
+opsi:[
+`4 km`,
+`5 km`,
+`6 km`,
+`8 km`
+]
+},
+
+/*soal 21*/
+{
+tanya:`Hasil dari 
+<span class="frac"><sup>2</sup><span class="garis"></span><sub>3</sub></span> + 
+<span class="frac"><sup>1</sup><span class="garis"></span><sub>5</sub></span> : 
+<span class="frac"><sup>1</sup><span class="garis"></span><sub>2</sub></span> adalah ....`,
+
+opsi:[
+`2 <span class="frac"><sup>2</sup><span class="garis"></span><sub>30</sub></span>`,
+`2 <span class="frac"><sup>7</sup><span class="garis"></span><sub>30</sub></span>`,
+`1 <span class="frac"><sup>7</sup><span class="garis"></span><sub>30</sub></span>`,
+`1 <span class="frac"><sup>15</sup><span class="garis"></span><sub>30</sub></span>`
+]
+},
+
+/*soal 22*/
+{
+tanya:`Perhatikan bangun berikut!<br>
+<img src="S22.png"><br>
+Luas bangun di atas adalah ....`,
+
+opsi:[
+`5 + <span class="frac"><sup>27</sup><span class="garis"></span><sub>2</sub></span>`,
+`7 + <span class="frac"><sup>27</sup><span class="garis"></span><sub>2</sub></span>`,
+`6 + <span class="frac"><sup>27</sup><span class="garis"></span><sub>2</sub></span>`,
+`6 + <span class="frac"><sup>25</sup><span class="garis"></span><sub>2</sub></span>`
+]
+},
+
+/*soal 23*/
+{
+tanya:`Anton membaca buku setiap hari. Ia dapat membaca 90 lembar dalam waktu 30 menit.<br>
+Jika buku yang dibaca Anton memiliki ketebalan 450 lembar, maka waktu yang diperlukan Anton adalah ....`,
+
+opsi:[
+`120 menit`,
+`180 menit`,
+`150 menit`,
+`200 menit`
+]
+},
+
+/*soal 24*/
+{
+tanya:`Perhatikan gambar berikut!<br>
+<img src="S24.png"><br>
+Bangun ruang tersebut adalah ....`,
+
+opsi:[
+`Balok`,
+`Prisma Segitiga`,
+`Limas`,
+`Kubus`
+]
+},
+
+/*soal 25*/
+{
+tanya:`Perhatikan diagram berikut!<br>
+<img src="S24.png"><br>
+Berapa banyak sisi dan rusuk?`,
+
+opsi:[
+`sisi 5 rusuk 10`,
+`sisi 4 rusuk 9`,
+`sisi 5 rusuk 9`,
+`sisi 3 rusuk 9`
+]
+},
+
+/*soal 26*/
+{
+tanya:`Perhatikan diagram berikut!<br>
+<img src="S24.png"><br>
+Sisi manakah yang sejajar dengan sisi ABC?`,
+
+opsi:[
+`ADF`,
+`DEF`,
+`ABE`,
+`DEA`
+]
+},
+
+/*soal 27*/
+{
+tanya:`Perhatikan diagram berikut!<br>
+<img src="S24.png"><br>
+Sisi manakah yang sejajar dengan sisi ABC?`,
+
+opsi:[
+`CF`,
+`DF`,
+`DE`,
+`AC`
+]
+},
+
+/*soal 28*/
+{
+tanya:`Diagram di bawah menunjukan rasio pendapatan hasil pertanian.<br>
+<img src="S25.png"><br>
+Berapa persentase hasil pertanian yang menghasilkan buah?`,
+
+opsi:[
+`8%`,
+`9%`,
+`19%`,
+`11%`
+]
+},
+
+/*soal 29*/
+{
+tanya:`Diagram di bawah menunjukan rasio pendapatan hasil pertanian.<br>
+<img src="S25.png"><br>
+Jika seluruh hasil pertanian adalah 1500, maka jumlah hasil pertanian sayur adalah ……`,
+
+opsi:[
+`340`,
+`350`,
+`360`,
+`370`
+]
+}, 
+ 
+/* soal 30 */
+{
+tanya:`Hasil dari 14<sup>3</sup> adalah ....`,
+opsi:[
+`2.747`,
+`2.477`,
+`2.744`,
+`2.474`
+]
+},
+
+/*soal 31*/
+{
+tanya:`Perhatikan gambar berikut!<br>
+<img src="S26.png"><br>
+Jumlah satuan kubus yang menyusun bangun di atas adalah ....`,
+
+opsi:[
+`40`,
+`32`,
+`35`,
+`36`
+]
+},
+
+
+
+/* soal 32 */
+{
+tanya:`Volume kubus dengan panjang sisi 13 cm adalah ....`,
+opsi:[
+`2.744 cm³`,
+`2.297 cm³`,
+`2.197 cm³`,
+`2.774 cm³`
+]
+},
+
+/* soal 33 */
+{
+tanya:`Panjang sisi kubus jika diketahui volumenya 4.913 cm³ adalah ....`,
+opsi:[
+`15 cm`,
+`16 cm`,
+`17 cm`,
+`18 cm`
+]
+},
+
+/*soal 34*/
+{
+tanya:`Volume bangun ruang berikut adalah...<br>
+<img src="S27.png"><br>
+`,
+
+opsi:[
+`3.200 cm³`,
+`4.000 cm³`,
+`3.600 cm³`,
+`4.500 cm³`
+]
+},
+
+/* soal 35 */
+{
+tanya:`Sebuah kolam renang panjangnya 20 m dan lebarnya 12 m. Jika volumenya 336.000 liter, maka kedalamannya adalah ....`,
+opsi:[
+`130 cm`,
+`140 cm`,
+`150 cm`,
+`160 cm`
+]
+},
+
+/* soal 36 */
+{
+tanya:`Damar mempunyai 2 kubus dengan sisi 15 cm dan 18 cm. Selisih volumenya adalah ....`,
+opsi:[
+`1544 cm³`,
+`2457 cm³`,
+`2445 cm³`,
+`1457 cm³`
+]
+},
+
+/* soal 37 */
+{
+tanya:`Perhatikan data nilai berikut:<br>
+70, 80, 80, 90, 70, 100, 60, 70, 80, 70<br>
+Banyak siswa yang mendapat nilai 80 adalah ....`,
+opsi:[
+`2`,
+`3`,
+`4`,
+`5`
+]
+},
+
+/*soal 38*/
+{
+tanya:`Berdasarkan tabel pengunjung perpustakaan, jumlah pengunjung hari Selasa, Kamis, dan Jumat adalah ....<br>
+<img src="S28.png"><br>
+Banyak pengunjung hari Selasa, Kamis dan Jum'at adalah.....`,
+
+opsi:[
+`93`,
+`103`,
+`125`,
+`148`
+]
+},
+
+/*soal 39*/
+{
+tanya:`Berikut adalah tabel pegawai PT Tihamah Berkah berdasarkan umur<br>
+<img src="S29.png"><br>
+Jumlah pegawai yang berumur 21-35 adalah....`,
+
+opsi:[
+`33`,
+`45`,
+`55`,
+`63`
+]
+},
+
+/*soal 40*/
+{
+tanya:`Berikut hasil penjualan ikan yang disajikan dalam diagram.<br>
+<img src="S40.png"><br>
+Selisih hasil penjualan pada bulan Januari dan Maret adalah ......`,
+
+opsi:[
+`14`,
+`15`,
+`16`,
+`17`
+]
+}
+
+
+];
+
+
+
+
+const kunci = [
+ "B","B","D","C","C","C","C","C","C","B",
+ "A","B","C","B","C",
+ "B","A","B",
+ "B","C","C","C","C",
+ "B","C","B","C","A",
+ "C","C","D","C","C",
+ "C","B","B","C",
+ "C","C","B"
+];
+
+
+
+
+
+let index = 0;
+let jawaban = new Array(soal.length).fill("");
+
+// LOGIN
+function login(){
+ let u = document.getElementById("username").value;
+ let p = document.getElementById("password").value;
+
+ fetch(WEB_APP_URL,{
+   method:"POST",
+   body: JSON.stringify({
+     action:"login",
+     username:u,
+     password:p
+   })
+ })
+ .then(res=>res.json())
+ .then(res=>{
+   if(res.status=="sukses"){
+     userLogin = {username:u,nama:res.nama};
+
+     document.getElementById("loginPage").style.display="none";
+     document.getElementById("app").style.display="flex";
+
+     document.getElementById("namaUser").innerText = res.nama;
+
+     loadNomor();
+     tampilSoal(0);
+     mulaiTimer();
+   }else{
+     alert("Login gagal!");
+   }
+ });
+}
+
+// BUAT NOMOR
+function loadNomor(){
+ const nomorBox = document.getElementById("nomorSoal");
+ nomorBox.innerHTML = "";
+
+ soal.forEach((s,i)=>{
+   let div = document.createElement("div");
+   div.innerText = i+1;
+   div.onclick = ()=>tampilSoal(i);
+   nomorBox.appendChild(div);
+ });
+}
+
+// TAMPILKAN SOAL
+function tampilSoal(i){
+ index = i;
+ let s = soal[i];
+
+ let html = `<h3>Soal ${i+1}</h3>
+ <p>${s.tanya}</p><div class="pilihan">`;
+
+ s.opsi.forEach((o,idx)=>{
+   let huruf = String.fromCharCode(65+idx);
+
+   html += `
+   <label>
+   <input type="radio" name="jawab"
+   ${jawaban[i]==huruf?"checked":""}
+   onclick="pilih('${huruf}')">
+   ${huruf}. ${o}
+   </label>`;
+ });
+
+ html += "</div>";
+
+ document.getElementById("soal").innerHTML = html;
+
+ updateNomor();
+}
+
+// PILIH JAWABAN
+function pilih(h){
+ jawaban[index] = h;
+ updateNomor();
+}
+
+// UPDATE NOMOR
+function updateNomor(){
+ let semua = document.querySelectorAll(".nomor div");
+
+ semua.forEach((el,i)=>{
+   if(jawaban[i]!=""){
+     el.style.background="#22c55e";
+   }else{
+     el.style.background="#334155";
+   }
+
+   if(i==index){
+     el.style.border="2px solid yellow";
+   }else{
+     el.style.border="none";
+   }
+ });
+}
+
+
+
+
+
+function hitungNilai(){
+ let benar = 0;
+ let total = soal.length;
+
+ for(let i=0;i<total;i++){
+   if(jawaban[i] !== "" && jawaban[i] === kunci[i]){
+     benar++;
+   }
+ }
+
+ let nilai = (benar / total) * 100;
+ return Math.round(nilai);
+}
+
+
+
+
+
+// KIRIM JAWABAN
+function kirim(){
+
+ let kosong = jawaban.filter(j => j=="").length;
+
+ if(kosong > 0){
+   let lanjut = confirm("Masih ada "+kosong+" soal belum dijawab. Tetap kirim?");
+   if(!lanjut) return;
+ }
+
+ fetch(WEB_APP_URL,{
+   method:"POST",
+   body: JSON.stringify({
+     action:"kirim",
+     nama:userLogin.nama,
+     username:userLogin.username,
+     jawaban:jawaban
+   })
+ })
+ .then(res=>res.text())
+ .then(()=>{
+   alert("Ujian selesai!");
+   location.reload();
+ });
+}
+
+
+
+
+let waktu = 90 * 60; // 90 menit dalam detik
+let intervalTimer;
+
+// FORMAT WAKTU
+function formatWaktu(detik){
+  let m = Math.floor(detik / 60);
+  let s = detik % 60;
+  return `${m}:${s < 10 ? "0"+s : s}`;
+}
+
+// JALANKAN TIMER
+function mulaiTimer(){
+  intervalTimer = setInterval(()=>{
+    waktu--;
+
+    document.getElementById("timer").innerText = formatWaktu(waktu);
+    if(waktu <= 600){
+  document.getElementById("timer").style.color = "red";
+}
+
+    if(waktu <= 0){
+      clearInterval(intervalTimer);
+      alert("Waktu habis! Jawaban akan dikirim.");
+      kirim();
+    }
+
+  },1000);
+}
+
+
+
+let sidebarVisible = true;
+
+function toggleSidebar(){
+  const sidebar = document.querySelector(".sidebar");
+  const main = document.querySelector(".main");
+
+  sidebarVisible = !sidebarVisible;
+
+  if(!sidebarVisible){
+    sidebar.classList.add("hide");
+    main.classList.add("full");
+  }else{
+    sidebar.classList.remove("hide");
+    main.classList.remove("full");
+  }
+}
+
+
+
+
+</script>
+
+</body>
+</html>
